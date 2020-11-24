@@ -71,6 +71,7 @@ public class MedicineController {
             return "medicine_modify";
         } else {
             model.addAttribute("message", "There is not any Medicine with this id!");
+            model.addAttribute("medicines", service.findAll());
             return "medicines_see";
         }
     }

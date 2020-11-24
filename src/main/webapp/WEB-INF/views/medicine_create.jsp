@@ -19,35 +19,26 @@
 <body>
 <div class="container">
     <h1>Create New Medicine</h1>
-    <form:form method="post" action="../create" modelAttribute="medicine">
-        <form:label path="name">
-            Medicine name:*
-        </form:label>
-        <form:input path="name"/>
+    <form method="post" action="./create">
+        <label for="name">Medicine name:*</label>
+        <input type="text" name="name" id="name" required>
         <br/>
-        <form:label path="code">
-            Medicine code:*
-        </form:label>
-        <form:input path="code"/>
+        <label for="code">Medicine code:*</label>
+        <input type="number" name="code" id="code" required>
         <br/>
-        <form:label path="price">
-            Medicine price:*
-        </form:label>
-        <form:input path="price"/>
+        <label for="price">Medicine price:*</label>
+        <input type="number" name="price" id="price" required>
         <br/>
-        <form:label path="description">
-            Medicine description:*
-        </form:label>
-        <form:textarea path="description" cols="20" rows="5"/>
+        <label for="description">Medicine description:*</label>
+        <textarea name="description" id="description" cols="20" rows="5" placeholder="description"></textarea>
         <br/>
         <input type="submit" value="Create">
         <input type="reset" value="Reset">
-        <button type="button" id="go_home">Cancel</button>
-    </form:form>
+    </form>
 
     <form>
-        <button formaction="./medicine/see">See</button>
-        <button formaction="./">Home</button>
+        <button formaction="./see">See</button>
+        <button formaction="../">Home</button>
     </form>
 </div>
 

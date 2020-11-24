@@ -41,8 +41,8 @@
     </form:form>
 
     <form>
-        <button formaction="./prescription/see">See</button>
-        <button formaction="./">Home</button>
+        <button formaction="./see">See</button>
+        <button formaction="../">Home</button>
     </form>
 </div>
 

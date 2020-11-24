@@ -19,6 +19,11 @@
 <body>
 <div class="container">
     <h1>Create New Patient</h1>
+
+    <div>
+        <h1>${message}</h1>
+    </div>
+
     <form:form method="POST" action="./create" modelAttribute="patient">
         <form:label path="firstName">
             Patient firstName:*
@@ -55,8 +60,8 @@
     </form:form>
 
     <form>
-        <button formaction="./patient/see">See</button>
-        <button formaction="./">Home</button>
+        <button formaction="./see">See</button>
+        <button formaction="../">Home</button>
     </form>
 </div>
 

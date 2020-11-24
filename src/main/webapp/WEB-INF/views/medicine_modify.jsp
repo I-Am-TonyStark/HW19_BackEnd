@@ -9,17 +9,23 @@
     <title>Modify Medicine</title>
 </head>
 <body>
+
 <h1>Modify Medicine</h1>
-<form:form method="post" action="../modify" modelAttribute="medicine">
-    <input type="hidden" value="${medicine.uuid}"/>
-    <p>Name: <input type="text" value="${medicine.name}"/></p>
-    <p>Code: <input type="number" value="${medicine.code}"/></p>
-    <p>Price: <input type="number" value="${medicine.price}"/></p>
-    <p>Description: <textarea>${medicine.description}</textarea></p>
+
+<div>
+    <h1>${message}</h1>
+</div>
+
+<form:form method="post" action="./modify" modelAttribute="newMedicine">
+    <input type="hidden" value="${existMedicine.uuid}"/>
+    <p>Name: <input type="text" value="${existMedicine.name}"/></p>
+    <p>Code: <input type="number" value="${existMedicine.code}"/></p>
+    <p>Price: <input type="number" value="${existMedicine.price}"/></p>
+    <p>Description: <textarea>${existMedicine.description}</textarea></p>
     <p><input type="submit" value="Update"/> <input type="reset" value="Reset"/></p>
 </form:form>
 <form>
-    <button formaction="/">home</button>
+    <button formaction="../">home</button>
 </form>
 </body>
 </html>

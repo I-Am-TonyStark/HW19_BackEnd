@@ -8,5 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 @Repository
+@Transactional
 public interface PatientRepository extends BaseRepository<Patient,UUID> {
 }

@@ -14,7 +14,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css" crossorigin="anonymous" type="text/css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" crossorigin="anonymous" type="text/css">
     <title>See Medicines</title>
 </head>
 <body>
@@ -38,28 +38,38 @@
         </thead>
         <tbody>
         <% List<Medicine> medicines = (List<Medicine>) request.getAttribute("medicines");
-            if(medicines.isEmpty()){%>
+            if (medicines.isEmpty()) {%>
         <tr>
             <td colspan="6">There is not any Medicine yet!</td>
         </tr>
-        <%}
-            for (Medicine medicine : medicines) { %>
+        <%
+            }
+            for (Medicine medicine : medicines) {
+        %>
         <tr>
-            <td><%=medicine.getName()%></td>
-            <td><%=medicine.getCode()%></td>
-            <td><%=medicine.getPrice()%></td>
-            <td><%=medicine.getDescription()%></td>
-            <form:form method="get" action="../modify" methodParam="<%=medicine.getUuid()%>">
+            <td><%=medicine.getName()%>
+            </td>
+            <td><%=medicine.getCode()%>
+            </td>
+            <td><%=medicine.getPrice()%>
+            </td>
+            <td><%=medicine.getDescription()%>
+            </td>
+            <form:form method="get" action="./modify" methodParam="">
+                <input name="id" type="hidden" value="<%=medicine.getUuid()%>">
                 <td><input type="submit" value="Modify"></td>
             </form:form>
-            <form:form method="get" action="../delete" methodParam="<%=medicine.getUuid()%>">
+            <form:form method="get" action="./delete">
+                <input name="id" type="hidden" value="<%=medicine.getUuid()%>">
                 <td><input type="submit" value="Delete"></td>
             </form:form>
         </tr>
         <%}%>
-        <form><button formaction="/">home</button> </form>
         </tbody>
     </table>
+    <form>
+        <button formaction="../">home</button>
+    </form>
 </div>
 </body>
 </html>
