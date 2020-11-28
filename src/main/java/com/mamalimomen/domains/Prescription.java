@@ -23,15 +23,15 @@ public class Prescription extends BaseEntity {
 
     //@Temporal(TemporalType.DATE)
     //@DateTimeFormat(pattern = "dd.MM.yyy")
-    @Column(nullable = false, updatable = false)
+    @Column
     private LocalDate emissionDate;
 
     //@Temporal(TemporalType.DATE)
     //@DateTimeFormat(pattern = "dd.MM.yyy")
-    @Column(nullable = false, updatable = false)
+    @Column
     private LocalDate patientReferralDate;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinTable(name = "tbl_prescription_medicine"
             , joinColumns = @JoinColumn(name = "prescription_id")
             , inverseJoinColumns = @JoinColumn(name = "medicine_id"))

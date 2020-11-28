@@ -10,10 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
-public class PatientServiceImpl extends BaseServiceImpl<Patient, UUID, PatientRepository> implements PatientService {
+public class PatientServiceImpl extends BaseServiceImpl<Patient, Long, PatientRepository> implements PatientService {
 
     public PatientServiceImpl(@Autowired PatientRepository repository) {
         super(repository);
@@ -23,7 +22,7 @@ public class PatientServiceImpl extends BaseServiceImpl<Patient, UUID, PatientRe
     public String updatePatient(Patient patient) {
 
         try {
-            Optional<Patient> oPersistedPatient = repository.findById(patient.getUuid());
+            Optional<Patient> oPersistedPatient = repository.findById(patient.getId());
 
             if (oPersistedPatient.isPresent()) {
                 final Patient persistedPatient = oPersistedPatient.get();
@@ -46,14 +45,18 @@ public class PatientServiceImpl extends BaseServiceImpl<Patient, UUID, PatientRe
 
     @Override
     public String createNewPatient(Patient patient) {
-        saveOrUpdateOne(patient);
+        Optional<Patient> oPatient = saveOrUpdateOne(patient);
 
-        return "This patient was created successfully!";
+        if (oPatient.isPresent()) {
+            return "This patient was created successfully!";
+        } else {
+            return "Could not save patient cause some constraints!";
+        }
     }
 
     @Override
     public String deleteExistPatient(Patient patient) {
-        deleteOneById(patient.getUuid());
+        deleteOneById(patient.getId());
 
         return "This patient was deleted successfully!";
     }

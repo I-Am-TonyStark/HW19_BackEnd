@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Controller
+@Controller //API layer
 @RequestMapping(value = "/medicine")
 public class MedicineController {
 
@@ -30,7 +30,7 @@ public class MedicineController {
         this.context = context;
     }
 
-    @GetMapping(value = "/create")
+    @GetMapping(value = "/add")
     public String createMedicine() {
         return "medicine_create";
     }
@@ -54,15 +54,21 @@ public class MedicineController {
 
     @GetMapping(value = "/see")
     public String seeMedicines(Model model) {
-        List<Medicine> medicines = service.findAll();
-        model.addAttribute("medicines", medicines);
+        model.addAttribute("medicines", service.findAll());
         return "medicines_see";
     }
 
+    /**
+     * plain text & hash text
+     * get request parameter : ?id=1
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/modify")
-    public String modifyMedicine(@RequestParam(value = "id") final String uuid, Model model) {
+    public String modifyMedicine(@RequestParam(value = "id") final String id, Model model) {
 
-        Optional<Medicine> oMedicine = service.findOneById(UUID.fromString(uuid));
+        Optional<Medicine> oMedicine = service.findOneById(Long.valueOf(id));
 
         if (oMedicine.isPresent()) {
             model.addAttribute("existMedicine", oMedicine.get());
@@ -77,9 +83,8 @@ public class MedicineController {
     }
 
     @PostMapping(value = "/modify")
-    public String modifyMedicine(@ModelAttribute(name = "medicine") Medicine medicine, @RequestParam(value = "id") final String uuid, Model model) {
+    public String modifyMedicine(@ModelAttribute(name = "newMedicine") Medicine medicine, Model model) {
 
-        medicine.setUuid(UUID.fromString(uuid));
         String message = service.updateMedicine(medicine);
 
         model.addAttribute("medicines", service.findAll());
@@ -88,17 +93,17 @@ public class MedicineController {
     }
 
     @RequestMapping(value = "/delete")
-    public String deleteMedicine(@RequestParam(value = "id") final String uuid, Model model) {
+    public String deleteMedicine(@RequestParam(value = "id") final String id, Model model) {
 
-        Optional<Medicine> oMedicine = service.findOneById(UUID.fromString(uuid));
+        Optional<Medicine> oMedicine = service.findOneById(Long.valueOf(id));
 
         if (oMedicine.isPresent()) {
             String message = service.deleteExistMedicine(oMedicine.get());
-            model.addAttribute("medicines", service.findAll());
             model.addAttribute("message", message);
         } else {
             model.addAttribute("message", "There is not any Patient with this id!");
         }
+        model.addAttribute("medicines", service.findAll());
         return "medicines_see";
     }
 }

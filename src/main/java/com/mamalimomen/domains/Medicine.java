@@ -6,10 +6,10 @@ import com.mamalimomen.base.utilities.Regex;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component("medicine")
 @Scope("prototype")
@@ -28,6 +28,9 @@ public class Medicine extends BaseEntity {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "medicines")
+    Set<Prescription> prescriptions = new HashSet<>();
 
     public String getName() {
         return name;
@@ -71,5 +74,13 @@ public class Medicine extends BaseEntity {
             throw new InValidDataException("Description");
         }
         this.description = description;
+    }
+
+    public Set<Prescription> getPrescriptions() {
+        return prescriptions;
+    }
+
+    public void setPrescriptions(Set<Prescription> prescriptions) {
+        this.prescriptions = prescriptions;
     }
 }

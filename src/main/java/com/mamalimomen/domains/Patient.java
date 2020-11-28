@@ -19,14 +19,14 @@ public class Patient extends BaseEntity {
     @Column(nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
+    @Column
     private String lastName;
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "fk_patient", nullable = false)
     private Set<Prescription> prescriptions = new HashSet<>();
 
@@ -69,6 +69,6 @@ public class Patient extends BaseEntity {
     }
 
     public void addPrescription(Prescription prescription) {
-        this.prescriptions.add(prescription);
+        this.getPrescriptions().add(prescription);
     }
 }

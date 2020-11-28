@@ -2,6 +2,7 @@ package com.mamalimomen.base.services;
 
 import com.mamalimomen.base.domains.BaseEntity;
 import com.mamalimomen.base.repositories.BaseRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,7 +21,11 @@ public class BaseServiceImpl<E extends BaseEntity
 
     @Override
     public Optional<E> saveOrUpdateOne(E e) {
-        return Optional.of(repository.save(e));
+        try {
+            return Optional.of(repository.save(e));
+        } catch (DataIntegrityViolationException ex) {
+            return Optional.empty();
+        }
     }
 
     @Override

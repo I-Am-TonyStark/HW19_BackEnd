@@ -6,11 +6,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 @Transactional
-public interface MedicineRepository extends BaseRepository<Medicine, UUID> {
+public interface MedicineRepository extends BaseRepository<Medicine, Long> {
 
     //@Query("SELECT m FROM #{#entityName} m WHERE m.code = ?1") //SpEl
     //@Query("SELECT m FROM Medicine m WHERE m.code = ?1")

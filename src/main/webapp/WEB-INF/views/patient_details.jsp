@@ -1,9 +1,8 @@
-<%@ page import="com.mamalimomen.domains.Medicine" %>
-<%@ page import="java.util.List" %>
 <%@ page import="com.mamalimomen.domains.Patient" %>
 <%@ page import="com.mamalimomen.domains.Prescription" %>
 <%@ page import="java.util.Set" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page isELIgnored="false" %>
 <%--
   Created by IntelliJ IDEA.
   User: Momen
@@ -17,7 +16,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css" crossorigin="anonymous" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Patient Details</title>
 </head>
 <body>
@@ -40,7 +40,7 @@
         <tbody>
         <% Patient patient = (Patient) request.getAttribute("existPatient");%>
         <tr>
-            <td>${existPatient.uuid}
+            <td>${existPatient.id}
             </td>
             <td>${existPatient.firstName}
             </td>
@@ -63,13 +63,14 @@
             <th>Prescription Patient ReferralDate</th>
             <th>Prescription EmissionDate</th>
             <th colspan="2">Prescription Medicines</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <% Set<Prescription> prescriptions = patient.getPrescriptions();
             if (prescriptions.isEmpty()) {%>
         <tr>
-            <td colspan="5">You have not any Prescription yet!</td>
+            <td colspan="6">You have not any Prescription yet!</td>
         </tr>
         <%
             }
@@ -82,14 +83,24 @@
             </td>
             <td><%=prescription.getEmissionDate()%>
             </td>
-            <td colspan="2"><%=prescription.printMedicines()%></td>
+            <td colspan="2"><%=prescription.printMedicines()%>
+            </td>
+            <form:form method="get" action="./delete_prescription">
+                <input type="hidden" name="patient_id" value="<%=patient.getId()%>">
+                <input type="hidden" name="prescription_id" value="<%=prescription.getId()%>">
+                <td><input type="submit" value="Delete"></td>
+            </form:form>
         </tr>
         <%}%>
-        <form>
-            <button formaction="/">home</button>
-        </form>
         </tbody>
     </table>
 </div>
+
+<form>
+    <button formaction="../patient/see">back</button>
+</form>
+<form>
+    <button formaction="../">home</button>
+</form>
 </body>
 </html>

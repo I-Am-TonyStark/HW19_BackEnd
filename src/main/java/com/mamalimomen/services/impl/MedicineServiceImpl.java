@@ -9,10 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
-public class MedicineServiceImpl extends BaseServiceImpl<Medicine, UUID, MedicineRepository> implements MedicineService {
+public class MedicineServiceImpl extends BaseServiceImpl<Medicine, Long, MedicineRepository> implements MedicineService {
 
     public MedicineServiceImpl(@Autowired MedicineRepository repository) {
         super(repository);
@@ -43,14 +42,18 @@ public class MedicineServiceImpl extends BaseServiceImpl<Medicine, UUID, Medicin
 
     @Override
     public String createNewMedicine(Medicine medicine) {
-        saveOrUpdateOne(medicine);
+        Optional<Medicine> oMedicine = saveOrUpdateOne(medicine);
 
-        return "This medicine was created successfully!";
+        if (oMedicine.isPresent()) {
+            return "This medicine was created successfully!";
+        }else {
+            return "Could not save medicine cause some constraints!";
+        }
     }
 
     @Override
     public String deleteExistMedicine(Medicine medicine) {
-        deleteOneById(medicine.getUuid());
+        deleteOneById(medicine.getId());
 
         return "This medicine was deleted successfully!";
     }

@@ -1,7 +1,6 @@
 package com.mamalimomen.base.services;
 
 import com.mamalimomen.base.domains.BaseEntity;
-import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;

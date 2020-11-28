@@ -1,7 +1,7 @@
-<%@ page import="com.mamalimomen.domains.Medicine" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.mamalimomen.domains.Patient" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page isELIgnored="false" %>
 <%--
   Created by IntelliJ IDEA.
   User: Momen
@@ -15,7 +15,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css" crossorigin="anonymous" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>See Patients</title>
 </head>
 <body>
@@ -54,22 +55,22 @@
             </td>
             <td><%=patient.getGender()%>
             </td>
-            <form:form method="get" action="../modify" methodParam="<%=patient.getUuid()%>">
-                <input type="hidden" name="id" value="<%=patient.getUuid()%>">
+            <form:form method="get" action="./modify">
+                <input type="hidden" name="id" value="<%=patient.getId()%>">
                 <td><input type="submit" value="Modify"></td>
             </form:form>
-            <form:form method="get" action="../delete" methodParam="<%=patient.getUuid()%>">
-                <input type="hidden" name="id" value="<%=patient.getUuid()%>">
-                <td><input type="submit" value="Delete"></td>
-            </form:form>
-            <form:form method="get" action="../details" methodParam="<%=patient.getUuid()%>">
-                <input type="hidden" name="id" value="<%=patient.getUuid()%>">
+            <form:form method="get" action="./details">
+                <input type="hidden" name="id" value="<%=patient.getId()%>">
                 <td><input type="submit" value="Details"></td>
+            </form:form>
+            <form:form method="get" action="./delete">
+                <input type="hidden" name="id" value="<%=patient.getId()%>">
+                <td><input type="submit" value="Delete"></td>
             </form:form>
         </tr>
         <%}%>
         <form>
-            <button formaction="/">home</button>
+            <button formaction="../">home</button>
         </form>
         </tbody>
     </table>

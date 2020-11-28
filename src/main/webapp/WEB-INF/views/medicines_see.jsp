@@ -1,5 +1,6 @@
 <%@ page import="com.mamalimomen.domains.Medicine" %>
 <%@ page import="java.util.List" %>
+<%@ page isELIgnored="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
@@ -14,7 +15,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css" crossorigin="anonymous" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <%-- <link rel="stylesheet" href="../statics/css/bootstrap.min.css" crossorigin="anonymous" type="text/css">--%>
     <title>See Medicines</title>
 </head>
 <body>
@@ -56,11 +59,11 @@
             <td><%=medicine.getDescription()%>
             </td>
             <form:form method="get" action="./modify" methodParam="">
-                <input name="id" type="hidden" value="<%=medicine.getUuid()%>">
+                <input name="id" type="hidden" value="<%=medicine.getId()%>">
                 <td><input type="submit" value="Modify"></td>
             </form:form>
             <form:form method="get" action="./delete">
-                <input name="id" type="hidden" value="<%=medicine.getUuid()%>">
+                <input name="id" type="hidden" value="<%=medicine.getId()%>">
                 <td><input type="submit" value="Delete"></td>
             </form:form>
         </tr>

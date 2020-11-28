@@ -7,10 +7,11 @@ import com.mamalimomen.services.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class PrescriptionServiceImpl extends BaseServiceImpl<Prescription, UUID, PrescriptionRepository> implements PrescriptionService {
+public class PrescriptionServiceImpl extends BaseServiceImpl<Prescription, Long, PrescriptionRepository> implements PrescriptionService {
 
     public PrescriptionServiceImpl(@Autowired PrescriptionRepository repository) {
         super(repository);
@@ -18,14 +19,18 @@ public class PrescriptionServiceImpl extends BaseServiceImpl<Prescription, UUID,
 
     @Override
     public String createNewPrescription(Prescription prescription) {
-        saveOrUpdateOne(prescription);
+        Optional<Prescription> oPrescription = saveOrUpdateOne(prescription);
 
-        return "This prescription was created successfully!";
+        if (oPrescription.isPresent()) {
+            return "This prescription was created successfully!";
+        } else {
+            return "Could not save prescription cause some constraints!";
+        }
     }
 
     @Override
     public String deleteExistPrescription(Prescription prescription) {
-        deleteOneById(prescription.getUuid());
+        deleteOneById(prescription.getId());
 
         return "This prescription was deleted successfully!";
     }

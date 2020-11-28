@@ -5,9 +5,7 @@ import com.mamalimomen.domains.Patient;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
-
 @Repository
 @Transactional
-public interface PatientRepository extends BaseRepository<Patient,UUID> {
+public interface PatientRepository extends BaseRepository<Patient,Long> {
 }

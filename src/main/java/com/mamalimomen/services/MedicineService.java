@@ -5,7 +5,7 @@ import com.mamalimomen.domains.Medicine;
 
 import java.util.UUID;
 
-public interface MedicineService extends BaseService<Medicine, UUID> {
+public interface MedicineService extends BaseService<Medicine, Long> {
 
     String updateMedicine(Medicine medicine);
 

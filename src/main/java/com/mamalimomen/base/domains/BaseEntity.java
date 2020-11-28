@@ -7,35 +7,38 @@ import java.util.UUID;
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
 
+    @Transient
+    private static Long count = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "UUID", nullable = false, updatable = false, unique = true)
-    private UUID uuid;
+    @Column(name = "ID", nullable = false, updatable = false, unique = true)
+    private Long id;
 
     public BaseEntity() {
-        this.uuid = UUID.randomUUID();
+        this.id = count;
+        count++;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public Long getId() {
+        return id;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.uuid.hashCode();
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || this.getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         BaseEntity that = (BaseEntity) o;
 
-        return uuid.equals(that.uuid);
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

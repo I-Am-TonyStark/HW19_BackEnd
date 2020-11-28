@@ -8,5 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 
 @Repository
+@Transactional
 public interface BaseRepository<E extends BaseEntity, ID extends Serializable> extends JpaRepository<E, ID> {
 }
